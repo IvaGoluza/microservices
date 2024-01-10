@@ -19,8 +19,8 @@ public class AggregatorService {
 
     public List<ReadingDTO> getAggregatedReadings() {
 
-        String humidityUrl = "http://localhost:8090/api/humidity";
-        String temperatureUrl = "http://localhost:8091/api/temperature";
+        String humidityUrl = "http://HUMIDITY-MICROSERVICE/api/humidity";
+        String temperatureUrl = "http://TEMPERATURE-MICROSERVICE/api/temperature";
 
         ReadingDTO temperatureReading = restTemplate.getForObject(temperatureUrl, ReadingDTO.class);
         assert temperatureReading != null;

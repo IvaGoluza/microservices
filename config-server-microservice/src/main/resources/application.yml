@@ -1,7 +1,12 @@
 spring:
+  application:
+    name: config-server-microservice
   cloud:
     config:
       server:
         git:
+          default-label: master
           uri: https://github.com/IvaGoluza/microservices
-          search-paths: data
+          search-paths: config
+server:
+  port: 8888
