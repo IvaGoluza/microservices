@@ -7,9 +7,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -24,8 +22,8 @@ public class TemperatureService {
         else throw new EntityNotFoundException("Temperature reading with id: " + rowID + " not found.");
     }
 
-    public void saveTemperatureReadingsFromCSV(String filePath) {
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+    public void saveTemperatureReadingsFromCSV(InputStream inputStream) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
             String line;
             boolean header = false;
             while ((line = br.readLine()) != null) {
@@ -44,4 +42,5 @@ public class TemperatureService {
             throw new RuntimeException(e);
         }
     }
+
 }

@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 
-import java.util.Objects;
+import java.io.InputStream;
 
 @EnableDiscoveryClient
 @SpringBootApplication
@@ -22,9 +22,23 @@ public class HumidityMicroserviceApplication {
 	@Bean
 	public CommandLineRunner loadData(HumidityService humidityService) {
 		return args -> {
+			InputStream inputStream = HumidityMicroserviceApplication.class.getResourceAsStream("/data/readings.csv");
+
+			if (inputStream == null) {
+				throw new RuntimeException("Resource not found: /data/readings.csv");
+			}
+
+			humidityService.saveHumidityReadingsFromCSV(inputStream);
+		};
+	}
+
+
+	/*@Bean
+	public CommandLineRunner loadData(HumidityService humidityService) {
+		return args -> {
 			String filePath = Objects.requireNonNull(HumidityMicroserviceApplication.class.getResource("/data/readings.csv")).getPath();
 			humidityService.saveHumidityReadingsFromCSV(filePath);
 		};
-	}
+	}*/
 
 }

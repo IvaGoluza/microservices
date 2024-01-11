@@ -9,9 +9,11 @@ spring:
          uri: https://localhost:8888
          name: application
    config:
-      import: optional:configserver:http://localhost:8888
+      import: optional:configserver:http://192.168.56.1:8888
 
 eureka:
    client:
       service-url:
-         defaultZone: "http://localhost:8761/eureka/"
+         defaultZone: "http://192.168.56.1:8761/eureka/"
+   instance:
+      preferIpAddress: true

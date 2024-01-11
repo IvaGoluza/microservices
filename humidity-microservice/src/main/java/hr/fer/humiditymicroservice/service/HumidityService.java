@@ -7,9 +7,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -24,6 +22,7 @@ public class HumidityService {
         else throw new EntityNotFoundException("Humidity reading with id: " + rowID + " not found.");
     }
 
+    /*
     public void saveHumidityReadingsFromCSV(String filePath) {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -43,5 +42,27 @@ public class HumidityService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    } */
+
+    public void saveHumidityReadingsFromCSV(InputStream inputStream) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
+            String line;
+            boolean header = false;
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(",");
+                if (!header) {
+                    header = true;
+                    continue;
+                }
+                int humidity = Integer.parseInt(data[2]);
+
+                HumidityReading humidityReading = new HumidityReading();
+                humidityReading.setHumidity(humidity);
+                humidityRepository.save(humidityReading);  // save all the humidity data into DB
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
+
 }
