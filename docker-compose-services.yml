@@ -1,0 +1,28 @@
+version: '3'
+services:
+  aggregator-service:
+    image: aggregator-microservice-image
+    hostname: aggregator-microservice
+    ports:
+      - "8092:8092"
+    networks:
+      - my-network
+
+  temperature-service:
+    image: temperature-microservice-image
+    hostname: temperature-microservice
+    ports:
+      - "8091:8091"
+    networks:
+      - my-network
+
+  humidity-service:
+    image: humidity-microservice-image
+    hostname: humidity-microservice
+    ports:
+      - "8090:8090"
+    networks:
+      - my-network
+
+networks:
+  my-network:

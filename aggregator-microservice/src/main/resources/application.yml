@@ -3,7 +3,7 @@ server:
 
 spring:
    application:
-      name: config-server-microservice
+      name: aggregator-microservice
    cloud:
       config:
          uri: https://localhost:8888
