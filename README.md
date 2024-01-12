@@ -32,7 +32,7 @@ docker-compose -f docker-compose-services.yml up -d
  - Temperature Microservice Database: http://localhost:8090/h2-console
  - Humidity Microservice Database: http://localhost:8091/h2-console <br/>
 
-### 3. Testing with Postman:
+### 3. Testing with Postman
    Send a GET request to the Aggregator Microservice:
    http://localhost:8092/api/aggregator
 
